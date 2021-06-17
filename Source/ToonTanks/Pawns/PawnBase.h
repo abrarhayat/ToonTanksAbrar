@@ -14,16 +14,16 @@ class TOONTANKS_API APawnBase : public APawn
 	GENERATED_BODY()
 
 private:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta=(AllowPrivateAccess = "true")) //we use the meta because we are exposing private variable to BluePrintReadOnly which will cause compile problems
 	UCapsuleComponent *CapsuleComp; //this is the basic collision component, this class needs to have forward declaration
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta=(AllowPrivateAccess = "true"))
 	UStaticMeshComponent *BaseMesh; //the rest of the classes do not need forward declaration
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta=(AllowPrivateAccess = "true"))
 	UStaticMeshComponent *TurretMesh;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta=(AllowPrivateAccess = "true"))
 	USceneComponent *ProjectileSpawnPoint;
 
 public:
