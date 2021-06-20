@@ -28,7 +28,6 @@ private:
 	float TurningSpeed = 100.0f;
 
 	void CalculateMovementDirection(float Value);
-	void CalculateMovementDirection(float Value);
 	void CalculateMovementRotation(float Value);
 
 	void Move();
