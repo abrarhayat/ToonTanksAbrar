@@ -21,6 +21,19 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UCameraComponent *Camera;
 
+	FVector MovementDirection;
+	FQuat MovementRotation;
+
+	float MovementSpeed = 100.0f;
+	float TurningSpeed = 100.0f;
+
+	void CalculateMovementDirection(float Value);
+	void CalculateMovementDirection(float Value);
+	void CalculateMovementRotation(float Value);
+
+	void Move();
+	void Rotate();
+
 public:
 	// Sets default values for this pawn's properties
 	APawnTank();

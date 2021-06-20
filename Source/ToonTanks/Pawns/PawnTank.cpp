@@ -30,3 +30,23 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
+
+void APawnTank::CalculateMovementDirection(float Value) 
+{
+	MovementDirection = FVector(Value * MovementSpeed * GetWorld()->DeltaTimeSeconds, 0 , 0); //movement only in x-axis
+}
+
+void APawnTank::CalculateMovementRotation(float Value) 
+{
+	
+}
+
+void APawnTank::Move() 
+{
+	
+}
+
+void APawnTank::Rotate() 
+{
+	
+}
