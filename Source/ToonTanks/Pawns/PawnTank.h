@@ -16,10 +16,10 @@ class TOONTANKS_API APawnTank : public APawnBase
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	USpringArmComponent *SpringArm;
+	USpringArmComponent *SpringArm; //This component tries to maintain its children at a fixed distance from the parent
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UCameraComponent *Camera;
+	UCameraComponent *Camera; //Represents a camera viewpoint and settings, such as projection type, field of view, and post-process overrides.
 
 	FVector MovementDirection;
 	FQuat MovementRotation;
