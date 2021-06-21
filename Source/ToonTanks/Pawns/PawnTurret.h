@@ -6,6 +6,8 @@
 #include "PawnBase.h"
 #include "PawnTurret.generated.h"
 
+class APawnTank;
+
 UCLASS()
 class TOONTANKS_API APawnTurret : public APawnBase
 {
@@ -15,9 +17,16 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	float FireRate = 2.0f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	float FiringDistanceThreshold = 1000.0f;
+
 	FTimerHandle FireRateHandle;
 
+	APawnTank *PlayerPawn;
+
 	void CheckFireCondition();
+
+	float GetDistanceFromPlayerPawn();
 
 public:
 	// Sets default values for this pawn's properties
