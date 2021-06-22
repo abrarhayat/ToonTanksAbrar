@@ -25,12 +25,16 @@ APawnBase::APawnBase()
 void APawnBase::RotateTurretToTarget(FVector TargetToLookAt)
 {
 	//Update the Turret mesh (top part) in tanks or turrets to face the TargetToLookAt
-	//TurretMesh->SetWorldRotation()....
+	FVector TargetToLookAtCleaned = FVector(TargetToLookAt.X, TargetToLookAt.Y, TurretMesh->GetComponentLocation().Z); //Restricting the Z axis to the original Turret Z-Axis
+	FVector StartLocation = TurretMesh->GetComponentLocation();
+	FRotator TurretRotation = FVector(TargetToLookAtCleaned - StartLocation).Rotation();
+	TurretMesh->SetWorldRotation(TurretRotation);
 }
 
 void APawnBase::Fire()
 {
 	//Get the projectile spawn point Location and Rotation -> Spawn Projectile class at Location firing towards the Rotation
+	UE_LOG(LogTemp, Warning, TEXT("Firing!"));
 }
 
 void APawnBase::HandleDestruction()

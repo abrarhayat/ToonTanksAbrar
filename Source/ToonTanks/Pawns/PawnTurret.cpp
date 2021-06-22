@@ -18,10 +18,23 @@ void APawnTurret::BeginPlay()
     PlayerPawn = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(this, 0)); //getting the APawn object from the world and casting it to APawnTank
 }
 
+void APawnTurret::HandleDestruction() 
+{
+    //Calling the Base HandleDestruction from PawnBase to play effects
+    Super::HandleDestruction();
+    Destroy();
+}
+
 // Called every frame
 void APawnTurret::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+    if (!PlayerPawn || GetDistanceFromPlayerPawn() >= FiringDistanceThreshold)
+    {
+        return;
+    }
+
+    RotateTurretToTarget(PlayerPawn->GetActorLocation());
 }
 
 void APawnTurret::CheckFireCondition()
@@ -34,7 +47,7 @@ void APawnTurret::CheckFireCondition()
     }
     if (GetDistanceFromPlayerPawn() <= FiringDistanceThreshold)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Firing!"));
+        Fire();
     }
 }
 
