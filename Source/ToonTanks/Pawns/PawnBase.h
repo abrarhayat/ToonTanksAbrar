@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "ToonTanks/Actors/ProjectileBase.h"
 #include "PawnBase.generated.h"
 
 class UCapsuleComponent; //this is a forward declaration, which will let us use this reference of the class instead of including the entire file
@@ -14,6 +15,8 @@ class TOONTANKS_API APawnBase : public APawn
 	GENERATED_BODY()
 
 private:
+
+	//COMPONENTS
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true")) //we use the meta because we are exposing private variable to BluePrintReadOnly which will cause compile problems
 	UCapsuleComponent *CapsuleComp;																				 //this is the basic collision component, this class needs to have forward declaration
 
@@ -25,6 +28,10 @@ private:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent *ProjectileSpawnPoint;
+
+	//VARIABLES
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<AProjectileBase> ProjectileClass;
 
 public:
 	// Sets default values for this pawn's properties
