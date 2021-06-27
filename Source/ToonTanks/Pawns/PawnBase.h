@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "ToonTanks/Actors/ProjectileBase.h"
 #include "PawnBase.generated.h"
 
 class UCapsuleComponent; //this is a forward declaration, which will let us use this reference of the class instead of including the entire file
+class AProjectileBase;
 
 UCLASS()
 class TOONTANKS_API APawnBase : public APawn
