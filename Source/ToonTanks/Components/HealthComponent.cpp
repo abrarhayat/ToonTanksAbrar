@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "HealthComponent.h"
+#include "ToonTanks/GameModes/TankGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent()
@@ -13,18 +14,33 @@ UHealthComponent::UHealthComponent()
 	// ...
 }
 
-
 // Called when the game starts
 void UHealthComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// ...
-	
+	Health = DefaultHealth;
+	GameModeRef = Cast<ATankGameModeBase>(UGameplayStatics::GetGameMode(GetWorld()));
+	GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::TakeDamage); //binding the TakeDamage Delegate to the OnTakeAnyDamage function
 }
 
-void UHealthComponent::TakeDamage(AActor *DamagedActor, float DamageAmount, const UDamageType *DamageType, AController *InstigatedBy, AActor *DamageCauser) 
+void UHealthComponent::TakeDamage(AActor *DamagedActor, float DamageAmount, const UDamageType *DamageType, AController *InstigatedBy, AActor *DamageCauser)
 {
-	
-}
+	if (DamageAmount == 0 || Health <= 0) //if there is no damage done or if pawn is already dead
+	{
+		return;
+	}
 
+	Health = FMath::Clamp(Health - DamageAmount, 0.0f, DefaultHealth);
+
+	if (Health <= 0)
+	{
+		if (GameModeRef)
+		{
+			GameModeRef->ActorDied(GetOwner());
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Health Component has no valid reference to the GameMode"));
+		}
+	}
+}
