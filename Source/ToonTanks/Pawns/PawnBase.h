@@ -37,10 +37,10 @@ public:
 	// Sets default values for this pawn's properties
 	APawnBase();
 
+	virtual void HandleDestruction(); //the virtual keyword indicates that will method will be overridden in the child classes
+
 protected:
 	void RotateTurretToTarget(FVector TargetToLookAt);
 
 	void Fire();
-
-	virtual void HandleDestruction(); //the virtual keyword indicates that will method will be overridden in the child classes
 };
