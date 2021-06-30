@@ -25,6 +25,9 @@ public:
 	void ActorDied(AActor *DeadActor);
 
 protected:
+	UPROPERTY(EditDefaultsOnly, BluePrintReadOnly, Category = "Game Loop") //means that this variable can only be read in blueprints and the default value can be changed before starting the game
+	int32 StartDelay = 4;
+
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintImplementableEvent)
