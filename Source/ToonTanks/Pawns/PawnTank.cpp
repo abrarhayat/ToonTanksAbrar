@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "PawnTurret.h"
+#include "ToonTanks/Components/HealthComponent.h"
 
 APawnTank::APawnTank()
 {
@@ -53,6 +54,8 @@ void APawnTank::Tick(float DeltaTime)
 		FVector HitLocation = TraceHitResult.ImpactPoint;
 		RotateTurretToTarget(HitLocation);
 	}
+	// UHealthComponent *HealthComponent = FindComponentByClass<UHealthComponent>();
+	// UE_LOG(LogTemp, Warning, TEXT("Player Health: %f"), HealthComponent->Health);
 }
 
 // Called to bind functionality to input
