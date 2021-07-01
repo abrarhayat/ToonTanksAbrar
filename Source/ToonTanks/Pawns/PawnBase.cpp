@@ -4,6 +4,7 @@
 #include "Components/CapsuleComponent.h"
 #include "ToonTanks/Actors/ProjectileBase.h"
 #include "ToonTanks/Components/HealthComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APawnBase::APawnBase()
@@ -52,6 +53,7 @@ void APawnBase::HandleDestruction()
 {
 	//--Univeral Functionalities--
 	//Play Death Effect particle, sound and shake
+	UGameplayStatics::SpawnEmitterAtLocation(this, DeathParticles, GetActorLocation());
 
 	//--Child Specific Overrides--
 

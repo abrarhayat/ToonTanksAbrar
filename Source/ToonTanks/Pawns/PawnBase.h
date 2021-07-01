@@ -16,7 +16,6 @@ class TOONTANKS_API APawnBase : public APawn
 	GENERATED_BODY()
 
 private:
-
 	//COMPONENTS
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true")) //we use the meta because we are exposing private variable to BluePrintReadOnly which will cause compile problems
 	UCapsuleComponent *CapsuleComp;																				 //this is the basic collision component, this class needs to have forward declaration
@@ -36,6 +35,9 @@ private:
 	//VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AProjectileBase> ProjectileClass;
+
+	UPROPERTY(EditAnywhere, Category = "Effects")
+	UParticleSystem *DeathParticles;
 
 public:
 	// Sets default values for this pawn's properties
