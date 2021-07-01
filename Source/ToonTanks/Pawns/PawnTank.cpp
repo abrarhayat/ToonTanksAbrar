@@ -28,7 +28,14 @@ void APawnTank::HandleDestruction()
 {
 	//Calling the Base HandleDestruction from PawnBase to play effects
 	Super::HandleDestruction();
-	//Hide PLayer, TODO create a separate function to do this
+	bIsPlayerAlive = false;
+	SetActorHiddenInGame(true);
+	SetActorTickEnabled(false);
+}
+
+bool APawnTank::GetIsPlayerAlive()
+{
+	return bIsPlayerAlive;
 }
 
 // Called every frame
