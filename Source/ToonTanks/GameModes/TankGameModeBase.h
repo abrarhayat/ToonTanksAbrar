@@ -7,6 +7,7 @@
 #include "TankGameModeBase.generated.h"
 
 class APawnTank;
+class APlayerControllerBase;
 
 UCLASS()
 class TOONTANKS_API ATankGameModeBase : public AGameModeBase
@@ -20,6 +21,7 @@ private:
 
 	int32 TargetTurrets;
 	APawnTank *PlayerTank;
+	APlayerControllerBase *PlayerControllerRef;
 
 public:
 	void ActorDied(AActor *DeadActor);

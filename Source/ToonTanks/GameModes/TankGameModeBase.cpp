@@ -4,6 +4,7 @@
 #include "ToonTanks/Pawns/PawnTurret.h"
 #include "ToonTanks/Pawns/PawnTank.h"
 #include "Kismet/GameplayStatics.h"
+#include "ToonTanks/PlayerControllers/PlayerControllerBase.h"
 
 void ATankGameModeBase::BeginPlay()
 {
@@ -19,6 +20,10 @@ void ATankGameModeBase::ActorDied(AActor *DeadActor)
         UE_LOG(LogTemp, Warning, TEXT("Player, %s died!"), *DeadActor->GetName());
         PlayerTank->HandleDestruction();
         HandleGameOver(false);
+        if (PlayerControllerRef)
+        {
+            PlayerControllerRef->SetPlayerEnabledState(false); //disabling player movement when game is over
+        }
     }
     else if (APawnTurret *DestroyedTurret = Cast<APawnTurret>(DeadActor)) //if this case is accessible, it will return true
     {
@@ -34,7 +39,15 @@ void ATankGameModeBase::ActorDied(AActor *DeadActor)
 void ATankGameModeBase::HandleGameStart()
 {
     PlayerTank = Cast<APawnTank>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
+    PlayerControllerRef = Cast<APlayerControllerBase>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
     GameStart(); //This is a function to be implemented in Blueprint
+    if (PlayerControllerRef)
+    {
+        PlayerControllerRef->SetPlayerEnabledState(false); //disabling player movement when game countdown begins
+        FTimerHandle PlayerEnableTimerHandle;
+        FTimerDelegate PlayerEnableDelegate = FTimerDelegate::CreateUObject(PlayerControllerRef, &APlayerControllerBase::SetPlayerEnabledState, true); // the function to be called by the delegate is from the player controller ref which is the SetPlayerEnabledState function with arg true
+        GetWorld()->GetTimerManager().SetTimer(PlayerEnableTimerHandle, PlayerEnableDelegate, StartDelay, false);                                      //a different override to the SetTimer function using a delegate
+    }
 }
 
 void ATankGameModeBase::HandleGameOver(bool PlayerWon)
