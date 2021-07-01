@@ -4,6 +4,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 AProjectileBase::AProjectileBase()
@@ -19,6 +20,9 @@ AProjectileBase::AProjectileBase()
 	ProjectileMovement->InitialSpeed = MovementSpeed;
 	ProjectileMovement->MaxSpeed = MovementSpeed;
 	InitialLifeSpan = 3.0f; //after this time a spawned projectile in the world will call destroy on itself and disappear from the world
+
+	ParticleTrail = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Particle Trail"));
+	ParticleTrail->SetupAttachment(RootComponent); //we are attaching this trail effect to the projectile mesh component
 }
 
 // Called when the game starts or when spawned
@@ -39,7 +43,7 @@ void AProjectileBase::OnHit(UPrimitiveComponent *HitComp, AActor *OtherActor, UP
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Applying Damage"));
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType); //since the actor causing the damage is not a pawn and does not have a controller, we are sending its owner's controller
-		UGameplayStatics::SpawnEmitterAtLocation(this, ProjectilePartilcles, OtherActor->GetActorLocation());
+		UGameplayStatics::SpawnEmitterAtLocation(this, ProjectilePartilcles, GetActorLocation());
 		Destroy();
 	}
 }
