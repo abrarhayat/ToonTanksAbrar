@@ -46,6 +46,7 @@ void AProjectileBase::OnHit(UPrimitiveComponent *HitComp, AActor *OtherActor, UP
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType); //since the actor causing the damage is not a pawn and does not have a controller, we are sending its owner's controller
 		UGameplayStatics::SpawnEmitterAtLocation(this, ProjectilePartilcles, GetActorLocation());
 		UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(HitShake);
 		Destroy();
 	}
 }
