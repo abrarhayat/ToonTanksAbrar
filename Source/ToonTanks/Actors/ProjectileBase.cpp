@@ -29,6 +29,7 @@ AProjectileBase::AProjectileBase()
 void AProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
+	UGameplayStatics::PlaySoundAtLocation(this, LaunchSound, GetActorLocation()); //playing this sound as soon as a projectile is fired
 }
 
 void AProjectileBase::OnHit(UPrimitiveComponent *HitComp, AActor *OtherActor, UPrimitiveComponent *OtherComp, FVector NormalImpulse, const FHitResult &Hit)
@@ -44,6 +45,7 @@ void AProjectileBase::OnHit(UPrimitiveComponent *HitComp, AActor *OtherActor, UP
 		//UE_LOG(LogTemp, Warning, TEXT("Applying Damage"));
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwner->GetInstigatorController(), this, DamageType); //since the actor causing the damage is not a pawn and does not have a controller, we are sending its owner's controller
 		UGameplayStatics::SpawnEmitterAtLocation(this, ProjectilePartilcles, GetActorLocation());
+		UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
 		Destroy();
 	}
 }
