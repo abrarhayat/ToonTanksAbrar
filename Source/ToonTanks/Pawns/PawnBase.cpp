@@ -67,3 +67,8 @@ float APawnBase::GetPawnHealth()
 {
 	return HealthComponent->Health;
 }
+
+float APawnBase::GetDefaultPawnHealth() 
+{
+	return HealthComponent->DefaultHealth;
+}

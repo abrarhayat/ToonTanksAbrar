@@ -54,6 +54,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	float GetPawnHealth();
 
+	UFUNCTION(BlueprintCallable)
+	float GetDefaultPawnHealth();
+
 protected:
 	void RotateTurretToTarget(FVector TargetToLookAt);
 
