@@ -29,6 +29,7 @@ void ATankGameModeBase::ActorDied(AActor *DeadActor)
     {
         UE_LOG(LogTemp, Warning, TEXT("Turret, %s died!"), *DeadActor->GetName());
         DestroyedTurret->HandleDestruction();
+        TurretsDestroyed++;
         if (--TargetTurrets == 0) //decreasing Target Turret amount by 1 and checking against it
         {
             HandleGameOver(true);

@@ -19,6 +19,8 @@ private:
 	void HandleGameOver(bool PlayerWon);
 	int32 GetTargetTurretAmount();
 
+	UPROPERTY(BlueprintReadonly, Category = "Score", meta = (AllowPrivateAccess = "true"))
+	int32 TurretsDestroyed = 0;
 	int32 TargetTurrets;
 	APawnTank *PlayerTank;
 	APlayerControllerBase *PlayerControllerRef;
