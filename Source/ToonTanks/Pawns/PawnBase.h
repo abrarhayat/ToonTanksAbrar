@@ -29,7 +29,7 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent *ProjectileSpawnPoint;
 
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UHealthComponent *HealthComponent;
 
 	//VARIABLES
@@ -50,6 +50,9 @@ public:
 	APawnBase();
 
 	virtual void HandleDestruction(); //the virtual keyword indicates that will method will be overridden in the child classes
+
+	UFUNCTION(BlueprintCallable)
+	float GetPawnHealth();
 
 protected:
 	void RotateTurretToTarget(FVector TargetToLookAt);

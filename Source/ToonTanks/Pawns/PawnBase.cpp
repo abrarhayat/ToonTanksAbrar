@@ -62,3 +62,8 @@ void APawnBase::HandleDestruction()
 
 	//--PawnTank --Inform GameMode Player Died-> Then Hide all components and stop movement input
 }
+
+float APawnBase::GetPawnHealth()
+{
+	return HealthComponent->Health;
+}
