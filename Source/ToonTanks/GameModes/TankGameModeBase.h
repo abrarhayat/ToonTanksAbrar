@@ -17,7 +17,9 @@ class TOONTANKS_API ATankGameModeBase : public AGameModeBase
 private:
 	void HandleGameStart();
 	void HandleGameOver(bool PlayerWon);
+	void HandleGameOverOnTimeOut();
 	int32 GetTargetTurretAmount();
+	FTimerHandle EndGameTimerHandle;
 
 	UPROPERTY(BlueprintReadonly, Category = "Score", meta = (AllowPrivateAccess = "true"))
 	int32 TurretsDestroyed = 0;
