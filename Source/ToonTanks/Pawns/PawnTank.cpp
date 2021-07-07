@@ -72,6 +72,7 @@ void APawnTank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 	PlayerInputComponent->BindAxis("MoveForward", this, &APawnTank::CalculateMovementDirection); //this calls CalculateMovementDirection providing it with params from -1 to 1 when we move forward
 	PlayerInputComponent->BindAxis("Turn", this, &APawnTank::CalculateMovementRotation);		 //this calls CalculateMovementRotation providing it with params from -1 to 1 when we rotate
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APawnTank::Fire);				 // BindAction is similar to BindAxis except it reacts to single actions like pressed / released
+	PlayerInputComponent->BindAction("PauseMenu", IE_Pressed, this, &APawnTank::HandlePauseMenu);
 }
 
 void APawnTank::CalculateMovementDirection(float Value)
