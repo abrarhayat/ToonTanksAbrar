@@ -10,6 +10,7 @@ void ATankGameModeBase::BeginPlay()
 {
     Super::BeginPlay();
     TargetTurrets = GetTargetTurretAmount();
+    GetWorld()->GetTimerManager().SetTimer(EndGameTimerHandle, this, &ATankGameModeBase::HandleGameOverOnTimeOut, GameTimeLeft, false);
     HandleGameStart();
 }
 
@@ -27,7 +28,7 @@ void ATankGameModeBase::ActorDied(AActor *DeadActor)
     }
     else if (APawnTurret *DestroyedTurret = Cast<APawnTurret>(DeadActor)) //if this case is accessible, it will return true
     {
-        UE_LOG(LogTemp, Warning, TEXT("Turret, %s died!"), *DeadActor->GetName());
+        // UE_LOG(LogTemp, Warning, TEXT("Turret, %s died!"), *DeadActor->GetName());
         DestroyedTurret->HandleDestruction();
         TurretsDestroyed++;
         if (--TargetTurrets == 0) //decreasing Target Turret amount by 1 and checking against it
@@ -54,6 +55,11 @@ void ATankGameModeBase::HandleGameStart()
 void ATankGameModeBase::HandleGameOver(bool PlayerWon)
 {
     GameOver(PlayerWon); //This is a function to be implemented in Blueprint
+}
+
+void ATankGameModeBase::HandleGameOverOnTimeOut()
+{
+    HandleGameOver(true);
 }
 
 int32 ATankGameModeBase::GetTargetTurretAmount()

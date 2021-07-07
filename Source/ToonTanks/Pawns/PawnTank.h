@@ -30,7 +30,7 @@ private:
 	UPROPERTY(EditAnyWhere, BlueprintReadOnly, Category = "Movement", meta = (AllowPrivateAccess = "true"))
 	float TurningSpeed = 100.0f;
 
-	APlayerController* PlayerControllerRef;
+	APlayerController *PlayerControllerRef;
 
 	bool bIsPlayerAlive = true;
 
@@ -57,4 +57,7 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BluePrintImplementableEvent)
+	void HandlePauseMenu();
 };
